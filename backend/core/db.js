@@ -24,7 +24,7 @@ function connect () {
     });
   });
 
-  mongoose.connect(config.uri, config.options);
+  return mongoose.connect(config.uri, config.options);
 }
 
 module.exports = {
