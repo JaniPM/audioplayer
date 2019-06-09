@@ -7,7 +7,7 @@ Contains the api of the audioplayer. Uses MongoDB as database and local folder `
 
 ### Getting started
 
-Starts in development environmant with `npm start` and be accessed from `localhost:3000`
+Starts in development environment with `npm start` and be accessed from `localhost:3000`
 
 Run unit tests `npm test`
 
