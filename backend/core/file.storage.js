@@ -3,6 +3,18 @@
 const fs = require('fs');
 const path = require('path');
 
+function canAccessFile (fileName) {
+  const filePath = getFilePath(fileName);
+  return new Promise((resolve) => {
+    fs.access(filePath, (err) => {
+      if (err) {
+        return resolve(false);
+      }
+      resolve(true);
+    });
+  });
+}
+
 function getFilePath (fileName) {
   return path.join(__dirname, '..', 'assets/' + fileName);
 }
@@ -23,6 +35,7 @@ function getReadStream (fileName) {
 }
 
 module.exports = {
+  canAccessFile,
   getFilePath,
   getFileSize,
   getReadStream

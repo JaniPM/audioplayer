@@ -16,7 +16,8 @@ before(async () => {
   // Seed test data
   for (let i = 0; i < seedCount; i++) {
     await Song.create({
-      name: 'Song ' + i,
+      title: 'Song ' + i,
+      fileName: 'sample.mp3',
       artist: faker.name.findName()
     });
   }

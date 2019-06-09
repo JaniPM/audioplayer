@@ -4,7 +4,11 @@ const mongoose = require('mongoose');
 const timestamps = require('mongoose-timestamp');
 
 const Schema = new mongoose.Schema({
-  name: {
+  title: {
+    type: String,
+    required: true
+  },
+  fileName: {
     type: String,
     required: true
   },

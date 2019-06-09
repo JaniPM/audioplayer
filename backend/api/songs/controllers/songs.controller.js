@@ -1,62 +1,68 @@
 'use strict';
 
 const log = require('../../../core/log');
-const fileStorage = require('../../../core/file.storage');
-const Song = require('../models/song');
+const songsService = require('../services/songs.service');
 
-async function findAll (req, res) {
+const findAll = async (req, res) => {
   let { limit, skip } = req.query;
   limit = parseInt(limit, 10) || 10;
   skip = parseInt(skip, 10) || 0;
 
   try {
-    const songsPromise = Song.find({}).skip(skip).limit(limit);
-    const totalPromise = Song.countDocuments({});
-
-    const response = {};
-    response.list = await songsPromise;
-    response.total = await totalPromise;
-
+    const response = await songsService.findAll(skip, limit);
     res.json(response);
   } catch (err) {
     log.error('songs.findAll caught error', err);
-    res.status(500);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+async function findOne (req, res) {
+  const { id } = req.params;
+  try {
+    const song = await songsService.findById(id);
+    if (!song) {
+      return res.status(404).json({ error: `Song not found with id ${id}` });
+    }
+    res.json(song);
+  } catch (err) {
+    log.error('songs.findById caught error', err);
+    res.status(500).json({ error: 'Internal server error' });
   }
 }
 
-function download (req, res) {
+async function download (req, res) {
+  const { id } = req.params;
   try {
-    // TODO currently always offers sample.mp3
-    // Read from file metadata when POST route is ready
-    const file = fileStorage.getFilePath('sample.mp3');
+    const file = await songsService.findFileById(id);
+    if (!file) {
+      return res.status(404).json({ error: `Song not found with id ${id}` });
+    }
     res.download(file);
   } catch (err) {
     log.error('songs.download caught error', err);
-    res.status(500);
+    res.status(500).json({ error: 'Internal server error' });
   }
 }
 
 async function stream (req, res) {
+  const { id } = req.params;
   try {
-    // TODO currently always offers sample.mp3
-    // Read from file metadata when POST route is ready
-    const fileName = 'sample.mp3';
-    const size = await fileStorage.getFileSize(fileName);
+    const stream = await songsService.findStreamById(id);
+    if (!stream) {
+      return res.status(404).json({ error: `Song not found with id ${id}` });
+    }
 
-    res.header({
-      'Content-Type': 'audio/mpeg',
-      'Content-Length': size
-    });
-
-    const readStream = fileStorage.getReadStream(fileName);
-    readStream.pipe(res);
+    res.header({ 'Content-Type': 'audio/mpeg', 'Content-Length': stream.size });
+    stream.readStream.pipe(res);
   } catch (err) {
-    log.error('songs.download caught error', err);
-    res.status(500);
+    log.error('songs.stream caught error', err);
+    res.status(500).json({ error: 'Internal server error' });
   }
 }
 
 module.exports = {
+  findOne,
   findAll,
   download,
   stream
