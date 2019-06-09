@@ -2,9 +2,12 @@
 
 ## backend
 
-Contains the api of the audioplayer. Uses MongoDB as database and local folder `/assets/` to store and serve audio files.
+Contains the api of the audioplayer. Uses MongoDB as database and local folder `./assets/` to store and serve audio files.
 
-Starts to development environmant with `npm start`
+
+### Getting started
+
+Starts in development environmant with `npm start` and be accessed from `localhost:3000`
 
 Run unit tests `npm test`
 
