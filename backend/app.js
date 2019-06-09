@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const cors = require('cors');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const routes = require('./api/routes');
@@ -11,6 +12,7 @@ const log = require('./core/log');
 const app = express();
 
 // Setup middleware
+app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
