@@ -7,11 +7,11 @@ Contains the api of the audioplayer. Uses MongoDB as database and local folder `
 
 ### Getting started
 
-Starts in development environment with `npm start` and be accessed from `localhost:3000`
+Starts in development environment with `npm start` and can be accessed from `localhost:3000`
 
 Run unit tests `npm test`
 
-Run integration tests `npm run test-integration`. Note requires MongoDB runnning in the default port 27017
+Run integration tests `npm run test-integration`. Note! Requires MongoDB runnning in the default port 27017
 
 Currently support routes:
 
