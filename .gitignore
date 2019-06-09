@@ -62,3 +62,6 @@ typings/
 
 # Local mongo db
 data
+
+# Local mp3 repository
+assets/*

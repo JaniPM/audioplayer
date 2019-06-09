@@ -1,6 +1,7 @@
 'use strict';
 
 const log = require('../../../core/log');
+const fileStorage = require('../../../core/file.storage');
 const Song = require('../models/song');
 
 async function findAll (req, res) {
@@ -23,6 +24,40 @@ async function findAll (req, res) {
   }
 }
 
+function download (req, res) {
+  try {
+    // TODO currently always offers sample.mp3
+    // Read from file metadata when POST route is ready
+    const file = fileStorage.getFilePath('sample.mp3');
+    res.download(file);
+  } catch (err) {
+    log.error('songs.download caught error', err);
+    res.status(500);
+  }
+}
+
+async function stream (req, res) {
+  try {
+    // TODO currently always offers sample.mp3
+    // Read from file metadata when POST route is ready
+    const fileName = 'sample.mp3';
+    const size = await fileStorage.getFileSize(fileName);
+
+    res.header({
+      'Content-Type': 'audio/mpeg',
+      'Content-Length': size
+    });
+
+    const readStream = fileStorage.getReadStream(fileName);
+    readStream.pipe(res);
+  } catch (err) {
+    log.error('songs.download caught error', err);
+    res.status(500);
+  }
+}
+
 module.exports = {
-  findAll
+  findAll,
+  download,
+  stream
 };
