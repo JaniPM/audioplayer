@@ -3,7 +3,7 @@
 const log = require('../../../core/log');
 const songsService = require('../services/songs.service');
 
-const findAll = async (req, res) => {
+async function findAll (req, res) {
   let { limit, skip } = req.query;
   limit = parseInt(limit, 10) || 10;
   skip = parseInt(skip, 10) || 0;
@@ -15,7 +15,7 @@ const findAll = async (req, res) => {
     log.error('songs.findAll caught error', err);
     res.status(500).json({ error: 'Internal server error' });
   }
-};
+}
 
 async function findOne (req, res) {
   const { id } = req.params;
@@ -67,3 +67,4 @@ module.exports = {
   download,
   stream
 };
+
