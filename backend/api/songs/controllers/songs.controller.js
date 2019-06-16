@@ -67,4 +67,3 @@ module.exports = {
   download,
   stream
 };
-
