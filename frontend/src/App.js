@@ -1,7 +1,12 @@
 import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
@@ -18,7 +23,12 @@ const App = ({ store }) => (
         <Container>
           <Suspense fallback={<div>Loading...</div>}>
             <Switch>
-              <Route exact path="/" component={Songs} />
+              <Route
+                exact
+                path="/"
+                render={() => <Redirect to="/songs" />}
+              />
+              <Route exact path="/songs" component={Songs} />
             </Switch>
           </Suspense>
         </Container>

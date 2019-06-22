@@ -5,7 +5,7 @@ const theme = createMuiTheme({
     fontFamily: "'Poppins', sans-serif",
   },
   shape: {
-    borderRadius: '0'
+    borderRadius: '3px'
   },
 });
 

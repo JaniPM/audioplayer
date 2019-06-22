@@ -7,7 +7,7 @@ import {
  */
 export const initialState = {
   loading: false,
-  songs: [],
+  items: [],
   total: 0,
 };
 
@@ -17,7 +17,7 @@ export default function (state = initialState, action) {
     [LOAD_SONGS_SUCCESS]: () => ({
       ...state,
       loading: false,
-      songs: action.payload.items,
+      items: action.payload.list,
       total: action.payload.total,
     }),
     default: () => state,

@@ -7,12 +7,12 @@ export { reducer };
  * Selectors
  */
 
-export const selectSongs = state => state.songs || initialState;
+export const selectState = state => state.songs || initialState;
 
 /**
  * Select the actual song items
  */
 export const getItems = createSelector(
-  selectSongs,
+  selectState,
   state => state.items
 );

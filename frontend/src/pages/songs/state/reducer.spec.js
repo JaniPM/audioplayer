@@ -21,7 +21,7 @@ describe('songs reducer', () => {
     const newState = reducer(state, loadSongsSuccess(payload));
 
     expect(newState.loading).toBeFalsy();
-    expect(newState.songs).toEqual(payload.items);
+    expect(newState.items).toEqual(payload.items);
     expect(newState.total).toBe(payload.total);
   });
 });
