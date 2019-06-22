@@ -1,16 +1,22 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import useInjectReducer from '../../hooks/useInjectReducer';
 import reducer from './state/reducer';
 import { selectSongs } from './state/selectors';
+import {
+  loadSongs
+} from './state/actions';
+import SearchBox from '../../components/SearchBox';
 
 const key = 'songs';
 
-const Songs = () => {
+const Songs = ({ onLoad }) => {
   useInjectReducer({ key, reducer });
+  useEffect(() => { onLoad(); }, [onLoad]);
+
   return (
-    <h1>Songs page</h1>
+    <SearchBox />
   );
 };
 
@@ -19,7 +25,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // someHandler: () => dispatch(someAction()),
+  onLoad: () => dispatch(loadSongs()),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
