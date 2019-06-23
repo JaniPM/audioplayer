@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
+import Audio from '../../../components/Audio';
 
 const useStyles = makeStyles({
   root: {
     textAlign: 'center',
   },
   content: {
-    padding: '1em',
+    padding: '2em',
   },
   meta: {
     display: 'flex',
@@ -29,12 +30,6 @@ const useStyles = makeStyles({
   },
 });
 
-/*
-artist: "Thea Leuschke Sr."
-createdAt: "2019-06-09T09:18:40.519Z"
-fileName: "sample.mp3"
-*/
-
 const SongDetails = ({ song }) => {
   const classes = useStyles();
   return (
@@ -52,10 +47,7 @@ const SongDetails = ({ song }) => {
               <dd>{song.fileName}</dd>
             </dl>
           </div>
-          <audio controls>
-            <source src={song.src} type="audio/mpeg" />
-            <p>Your browser doesn&apost support HTML5 audio.</p>
-          </audio>
+          <Audio src={song.src} />
         </Paper>
       )}
     </div>
