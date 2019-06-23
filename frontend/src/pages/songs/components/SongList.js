@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SongList = ({ songs, onSelectSong, hasMore }) => {
+const SongList = ({ songs, onSelectSong, hasMore, onLoadMore }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -47,7 +47,9 @@ const SongList = ({ songs, onSelectSong, hasMore }) => {
           </Card>
         ))}
       </div>
-      {hasMore && <Button color="primary">Load more</Button>}
+      {hasMore
+        && <Button color="primary" onClick={onLoadMore}>Load more</Button>
+      }
     </div>
   );
 };
@@ -56,6 +58,7 @@ SongList.propTypes = {
   onSelectSong: PropTypes.func.isRequired,
   songs: PropTypes.arrayOf(PropTypes.object),
   hasMore: PropTypes.bool,
+  onLoadMore: PropTypes.func.isRequired,
 };
 
 SongList.defaultProps = {

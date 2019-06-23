@@ -13,8 +13,8 @@ export const LOAD_SONG_FAILED = '[Songs] Load song failed';
  * Action creators
  */
 
-export function loadSongs() {
-  return { type: LOAD_SONGS };
+export function loadSongs(params) {
+  return { type: LOAD_SONGS, payload: params };
 }
 
 export function loadSongsSuccess(payload) {

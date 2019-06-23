@@ -24,7 +24,7 @@ export default function (state = initialState, action) {
     [LOAD_SONGS_SUCCESS]: () => ({
       ...state,
       loading: false,
-      songs: action.payload.list,
+      songs: [...state.songs, ...action.payload.list],
       total: action.payload.total,
     }),
     [LOAD_SONGS_FAILED]: () => ({ ...state, songsLoading: false }),

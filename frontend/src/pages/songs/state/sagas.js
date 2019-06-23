@@ -11,9 +11,18 @@ import {
 
 const path = 'songs';
 
-function* fetchSongs() {
+function queryString(queryParams) {
+  if (!queryParams) {
+    return '';
+  }
+  return `?${Object.keys(queryParams).map(key => `${key}=${queryParams[key]}`).join('&')}`;
+}
+
+function* fetchSongs(action) {
+  console.log(action);
   try {
-    const data = yield call(api.get, path);
+    const query = queryString(action.payload);
+    const data = yield call(api.get, `${path}${query}`);
     yield put(loadSongsSuccess(data));
   } catch (e) {
     yield put(loadSongsFailed());

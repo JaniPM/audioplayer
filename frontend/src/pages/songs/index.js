@@ -29,6 +29,7 @@ const useStyles = makeStyles(theme => ({
     overflowY: 'auto',
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
+    paddingBottom: theme.spacing(3),
     height: '100%',
   },
   divider: {
@@ -38,16 +39,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Songs = ({
-  onLoad,
+  onLoadSongs,
   onLoadSong,
   songs,
   selectedSong,
   hasMore,
 }) => {
   useInjectReducer({ key: moduleName, reducer });
-  useEffect(() => { onLoad(); }, [onLoad]);
+  useEffect(() => {
+    onLoadSongs();
+  }, [onLoadSongs]);
 
   const handleSelectSong = song => onLoadSong(song.id);
+
+  const handleLoadMore = () => onLoadSongs({ skip: songs.length });
 
   const classes = useStyles();
   return (
@@ -62,6 +67,7 @@ const Songs = ({
             songs={songs}
             onSelectSong={handleSelectSong}
             hasMore={hasMore}
+            onLoadMore={handleLoadMore}
           />
         </div>
         <SongDetails song={selectedSong} />
@@ -77,7 +83,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: () => dispatch(loadSongs()),
+  onLoadSongs: params => dispatch(loadSongs(params)),
   onLoadSong: id => dispatch(loadSong(id))
 });
 
