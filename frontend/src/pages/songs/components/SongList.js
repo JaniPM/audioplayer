@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import SongCard from './SongCard';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,28 +28,14 @@ const SongList = ({
   const classes = useStyles();
   return (
     <div className={classes.root}>
+      {songs.length === 0 && <p>No songs found!</p>}
       <div className={classes.gridList}>
-        {songs.length === 0 && <p>No songs found!</p>}
         {songs.map(song => (
-          <Card key={song.id}>
-            <CardContent>
-              <Typography component="h5" variant="h5">
-                {song.title}
-              </Typography>
-              <Typography variant="subtitle1" color="textSecondary">
-                {song.artist}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button
-                size="small"
-                color="primary"
-                onClick={() => onSelectSong(song)}
-              >
-                Select
-              </Button>
-            </CardActions>
-          </Card>
+          <SongCard
+            key={song.id}
+            {...song}
+            onSelect={() => onSelectSong(song)}
+          />
         ))}
       </div>
       {loading && <CircularProgress size={25} /> }

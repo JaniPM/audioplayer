@@ -1,4 +1,9 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import {
+  createStore,
+  combineReducers,
+  applyMiddleware,
+  compose
+} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { devToolsEnhancer } from 'redux-devtools-extension';
 import rootReducer from './state/reducer';
@@ -37,7 +42,6 @@ export default function configureStore(initialState) {
   // Create an inject reducer function
   // This function adds the async reducer, and creates a new combined reducer
   store.injectReducer = (key, asyncReducer) => {
-    console.log('inject reducer');
     store.asyncReducers[key] = asyncReducer;
     store.replaceReducer(createReducer(store.asyncReducers));
   };
