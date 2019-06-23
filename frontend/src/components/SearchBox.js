@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import { makeStyles } from '@material-ui/core/styles';
 import { MdSearch } from 'react-icons/md';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles({
   root: {
@@ -23,11 +24,14 @@ const useStyles = makeStyles({
   },
 });
 
-const SearchBox = ({ value, onChange }) => {
+const SearchBox = ({ value, onChange, searching }) => {
   const classes = useStyles();
   return (
     <Paper className={classes.root}>
-      <MdSearch className={classes.icon} />
+      {searching
+        ? <CircularProgress size={25} />
+        : <MdSearch className={classes.icon} />
+      }
       <InputBase
         className={classes.input}
         placeholder="Search..."
@@ -41,6 +45,11 @@ const SearchBox = ({ value, onChange }) => {
 SearchBox.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  searching: PropTypes.bool,
+};
+
+SearchBox.defaultProps = {
+  searching: false,
 };
 
 export default SearchBox;

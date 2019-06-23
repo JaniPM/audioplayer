@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import useInjectReducer from '../../hooks/useInjectReducer';
 import reducer from './state/reducer';
-import { getSongs, getSelectedSong, getHasMore } from './state/selectors';
+import * as selectors from './state/selectors';
 import { loadSongs, searchSongs, loadSong } from './state/actions';
 import SearchBox from '../../components/SearchBox';
 import SongList from './components/SongList';
@@ -45,6 +45,9 @@ const Songs = ({
   songs,
   selectedSong,
   hasMore,
+  songsLoading,
+  songLoading,
+  searching,
 }) => {
   const [searchTxt, setSearchTxt] = useState('');
 
@@ -70,7 +73,11 @@ const Songs = ({
   return (
     <div className={classes.root}>
       <header>
-        <SearchBox value={searchTxt} onChange={handleSearch} />
+        <SearchBox
+          value={searchTxt}
+          onChange={handleSearch}
+          searching={searching}
+        />
         <Divider className={classes.divider} />
       </header>
       <div className={classes.content}>
@@ -80,18 +87,22 @@ const Songs = ({
             onSelectSong={handleSelectSong}
             hasMore={hasMore}
             onLoadMore={handleLoadMore}
+            loading={songsLoading}
           />
         </div>
-        <SongDetails song={selectedSong} />
+        <SongDetails song={selectedSong} loading={songLoading} />
       </div>
     </div>
   );
 };
 
 const mapStateToProps = state => ({
-  songs: getSongs(state),
-  selectedSong: getSelectedSong(state),
-  hasMore: getHasMore(state)
+  songs: selectors.getSongs(state),
+  selectedSong: selectors.getSelectedSong(state),
+  hasMore: selectors.getHasMore(state),
+  songsLoading: selectors.getSongsLoading(state),
+  songLoading: selectors.getSongLoading(state),
+  searching: selectors.getSearching(state),
 });
 
 const mapDispatchToProps = dispatch => ({
