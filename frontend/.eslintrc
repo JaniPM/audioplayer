@@ -1,0 +1,24 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "plugins": [
+    "react",
+    "react-hooks"
+  ],
+  "env": {
+    "jest": true,
+    "browser": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+    "react/prop-types": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "comma-dangle": "off",
+    "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
+    "no-param-reassign": ["error", { "props": false }]
+  },
+  "globals": {
+    "fetch": false
+  }
+}

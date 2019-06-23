@@ -3,9 +3,31 @@
 const fileStorage = require('../../../core/file.storage');
 const Song = require('../models/song');
 
-async function findAll (skip, limit) {
-  const songsPromise = Song.find({}).skip(skip).limit(limit);
-  const totalPromise = Song.countDocuments({});
+const searchFields = ['title', 'artist'];
+
+function createSearchConditions (searchTxt) {
+  const conditions = {};
+
+  if (!searchTxt) {
+    return conditions;
+  }
+
+  conditions.$or = searchFields.map(field => ({
+    [field]: { $regex: `${searchTxt}`, $options: 'i' }
+  }));
+
+  return conditions;
+}
+
+/**
+ * Public methods
+ */
+
+async function findAll (skip, limit, search) {
+  const conditions = createSearchConditions(search);
+
+  const songsPromise = Song.find(conditions).select('title artist').skip(skip).limit(limit);
+  const totalPromise = Song.countDocuments(conditions);
 
   const response = {};
   response.list = await songsPromise;
