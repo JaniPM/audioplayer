@@ -4,17 +4,18 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Audio from '../../../components/Audio';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     textAlign: 'center',
   },
   content: {
-    padding: '2em',
+    padding: theme.spacing(2),
   },
   meta: {
     display: 'flex',
     justifyContent: 'space-evenly',
-    margin: '2em 0',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   metaItem: {
     padding: '0',
@@ -28,7 +29,7 @@ const useStyles = makeStyles({
       marginInlineStart: '0',
     },
   },
-});
+}));
 
 const SongDetails = ({ song }) => {
   const classes = useStyles();

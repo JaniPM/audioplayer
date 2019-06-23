@@ -17,6 +17,11 @@ export const getSongs = createSelector(
   state => state.songs
 );
 
+export const getHasMore = createSelector(
+  selectState,
+  state => state.songs.length < state.total
+);
+
 export const getSelectedSong = createSelector(
   selectState,
   state => state.selectedSong
