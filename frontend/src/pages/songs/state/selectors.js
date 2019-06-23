@@ -12,7 +12,12 @@ export const selectState = state => state.songs || initialState;
 /**
  * Select the actual song items
  */
-export const getItems = createSelector(
+export const getSongs = createSelector(
   selectState,
-  state => state.items
+  state => state.songs
+);
+
+export const getSelectedSong = createSelector(
+  selectState,
+  state => state.selectedSong
 );

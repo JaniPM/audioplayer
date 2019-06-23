@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 const timestamps = require('mongoose-timestamp');
+const config = require('../../../config/server');
 
 const Schema = new mongoose.Schema({
   title: {
@@ -18,6 +19,7 @@ const Schema = new mongoose.Schema({
   }
 }, {
   toJSON: {
+    virtuals: true,
     transform: function (doc, ret, options) {
       ret.id = ret._id;
       delete ret._id;
@@ -25,6 +27,10 @@ const Schema = new mongoose.Schema({
       return ret;
     }
   }
+});
+
+Schema.virtual('src').get(function () {
+  return `${config.host}:${config.port}/songs/${this._id}/stream`;
 });
 
 Schema.plugin(timestamps);

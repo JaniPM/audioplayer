@@ -4,7 +4,7 @@ const fileStorage = require('../../../core/file.storage');
 const Song = require('../models/song');
 
 async function findAll (skip, limit) {
-  const songsPromise = Song.find({}).skip(skip).limit(limit);
+  const songsPromise = Song.find({}).select('title artist').skip(skip).limit(limit);
   const totalPromise = Song.countDocuments({});
 
   const response = {};

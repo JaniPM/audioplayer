@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
   root: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, auto)',
+    gridTemplateColumns: 'repeat(2, auto)',
     gridRowGap: '1em',
     gridColumnGap: '1em',
   },
@@ -36,7 +36,7 @@ const SongList = ({ songs, onSelectSong }) => {
               color="primary"
               onClick={() => onSelectSong(song)}
             >
-              Open
+              Select
             </Button>
           </CardActions>
         </Card>
