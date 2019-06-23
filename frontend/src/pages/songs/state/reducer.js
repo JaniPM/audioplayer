@@ -2,6 +2,9 @@ import {
   LOAD_SONGS,
   LOAD_SONGS_SUCCESS,
   LOAD_SONGS_FAILED,
+  SEARCH_SONGS,
+  SEARCH_SONGS_SUCCESS,
+  SEARCH_SONGS_FAILED,
   LOAD_SONG,
   LOAD_SONG_SUCCESS,
   LOAD_SONG_FAILED
@@ -16,6 +19,7 @@ export const initialState = {
   selectedSong: null,
   songsLoading: false,
   songLoading: false,
+  searching: false,
 };
 
 export default function (state = initialState, action) {
@@ -28,6 +32,14 @@ export default function (state = initialState, action) {
       total: action.payload.total,
     }),
     [LOAD_SONGS_FAILED]: () => ({ ...state, songsLoading: false }),
+    [SEARCH_SONGS]: () => ({ ...state, searching: true }),
+    [SEARCH_SONGS_SUCCESS]: () => ({
+      ...state,
+      searching: false,
+      songs: action.payload.list,
+      total: action.payload.total,
+    }),
+    [SEARCH_SONGS_FAILED]: () => ({ ...state, searching: false }),
     [LOAD_SONG]: () => ({ ...state, songLoading: true }),
     [LOAD_SONG_SUCCESS]: () => ({
       ...state,

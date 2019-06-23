@@ -20,7 +20,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SongList = ({ songs, onSelectSong, hasMore, onLoadMore }) => {
+const SongList = ({
+  songs,
+  onSelectSong,
+  hasMore,
+  onLoadMore
+}) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>

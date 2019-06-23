@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,10 +32,15 @@ const SearchBox = ({ value, onChange }) => {
         className={classes.input}
         placeholder="Search..."
         value={value}
-        onChange={onChange}
+        onChange={e => onChange(e.target.value)}
       />
     </Paper>
   );
+};
+
+SearchBox.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default SearchBox;
